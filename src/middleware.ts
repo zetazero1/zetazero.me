@@ -1,6 +1,5 @@
 import type { APIContext, MiddlewareHandler } from "astro";
 import { sequence } from "astro:middleware";
-import { env } from "cloudflare:workers";
 import { readFeedVersion } from "./activity/feed";
 import { readSyncState } from "./activity/sync-state";
 import { getDb, readTimestamp } from "./db";
@@ -66,7 +65,7 @@ async function activityValidators(context: APIContext): Promise<Validators> {
     readFeedVersion(db),
   ]);
   const negotiable = representationFor(context.routePattern) !== undefined;
-  const { id, timestamp } = env.CF_VERSION_METADATA;
+  const { id, timestamp } = { id: "zetazero-me", timestamp: new Date().toISOString() };
 
   return {
     etag: activityETag(

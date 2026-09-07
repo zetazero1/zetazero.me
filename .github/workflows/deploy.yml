@@ -3,254 +3,30 @@ name: Deploy
 on:
   push:
     branches: [main, master]
-  pull_request:
-    branches: [main, master]
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'pages' }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
   deployments: write
 
+concurrency:
+  group: production
+  cancel-in-progress: true
+
 jobs:
-  lint:
+  deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: npm
       - run: npm ci
-      - run: npm run lint:types
-      - run: npx eslint .
-
-  test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 22
-          cache: "npm"
-      - run: npm ci
-      - run: npm test
-
-  migrate:
-    name: migrations
-    # Matches the cloudflare job so the two never disagree.
-    #
-    # A Dependabot pull request gets no preview deployment. The PR author is
-    # what identifies one: `github.actor` is whoever pushed last, so a fixup
-    # commit on a Dependabot branch would opt it back in and deploy a branch
-    # automerge is about to delete.
-    if: (github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]') || (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch)
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-    steps:
-      - name: "☁️ Checkout repository"
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: "📦 Setup Node.js"
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 22
-          cache: "npm"
-
-      - name: "📦 Install dependencies"
-        run: npm ci
-
-      # There is one D1 database, so a PR run would migrate production before
-      # review. Pull requests only upload preview versions, which take no
-      # traffic, so they never need the schema.
-      - name: "🗃️ Apply D1 migrations"
-        if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
-        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4.0.0
+      - run: npm run build
+      - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: d1 migrations apply bendrucker-activity --remote
-
-      # The apply step above never runs on a pull request, so nothing exercised
-      # the D1 token until merge. `list` takes the same auth and write path as
-      # `apply` without touching the schema, and prints what a merge would run.
-      - name: "🗃️ List unapplied D1 migrations"
-        id: list
-        if: github.event_name == 'pull_request'
-        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4.0.0
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          command: d1 migrations list bendrucker-activity --remote
-
-      - name: "📋 Summarize pending migrations"
-        if: github.event_name == 'pull_request'
-        env:
-          OUTPUT: ${{ steps.list.outputs.command-output }}
-        run: |
-          {
-            echo "## D1 migrations"
-            echo
-            echo '```'
-            printf '%s\n' "$OUTPUT" | sed 's/\x1b\[[0-9;]*m//g'
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-
-  cloudflare:
-    name: ${{ matrix.name }}
-    needs: migrate
-    if: (github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]') || (github.event_name == 'push' && github.ref_name == github.event.repository.default_branch)
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      deployments: write
-    outputs:
-      www-preview-url: ${{ steps.set-outputs.outputs.www-preview-url }}
-    strategy:
-      # One worker failing should not cancel the others' deployments.
-      fail-fast: false
-      matrix:
-        include:
-          - name: www
-            path: .
-          - name: github
-            path: workers/github
-          - name: stories
-            path: workers/stories
-
-    steps:
-      - name: "☁️ Checkout repository"
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: "📦 Setup Node.js"
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 22
-          cache: "npm"
-
-      - name: "📦 Install dependencies"
-        run: npm ci
-
-      - name: "🔧 Build shared packages"
-        run: npm run build --workspaces
-
-      - name: "🏗️ Build main site"
-        if: matrix.path == '.'
-        run: npm run build
-
-      - name: "📋 Copy assets ignore file"
-        if: matrix.path == '.'
-        run: cp .assetsignore dist/
-
-      - name: "📖 Build story book"
-        if: matrix.name == 'stories'
-        run: npm run story:build
-
-      # A branch deleted between the push and this step is not a ref the
-      # deployments API can resolve. The head SHA always is, and it is the
-      # commit the deployment records anyway.
-      - name: "📍 Start deployment"
-        id: deployment
-        uses: chrnorm/deployment-action@500aa6a23c81ffa1acf71072aee3cfa2cc2e556a # v2.0.8
-        with:
-          token: ${{ github.token }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          environment: ${{ github.event_name == 'pull_request' && format('pr-{0}-{1}', github.event.number, matrix.name) || format('{0}-production', matrix.name) }}
-          initial-status: in_progress
-          description: ${{ github.event_name == 'pull_request' && format('Preview deployment for PR {0} - {1}', github.event.number, matrix.name) || format('Production deployment for {0}', matrix.name) }}
-
-      - name: "🌐 Deploy to Cloudflare"
-        id: wrangler
-        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4.0.0
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: ${{ matrix.path }}
-          # `versions upload` refuses to run against a Worker that does not
-          # exist yet, and the PR introducing one is the first place it runs.
-          # Creating it costs nothing: a story book has no production readers.
-          preCommands: ${{ matrix.name == 'stories' && 'npx wrangler versions list > /dev/null 2>&1 || npx wrangler deploy' || '' }}
-          command: ${{ github.event_name == 'pull_request' && format('versions upload --tag PR-{0} --message "Preview for PR {0} - {1}" --preview-alias pr-{0}-{2}', github.event.number, github.event.pull_request.html_url, matrix.name) || 'deploy' }}
-          gitHubToken: ${{ github.token }}
-
-      - name: "🔗 Extract preview URL"
-        id: extract-url
-        if: github.event_name == 'pull_request'
-        run: |
-          # Extract the Version Preview Alias URL from wrangler output
-          ALIAS_URL=$(echo "${{ steps.wrangler.outputs.command-output }}" | sed -n 's/.*Version Preview Alias URL: //p' | xargs)
-          echo "alias-url=$ALIAS_URL" >> $GITHUB_OUTPUT
-          echo "Preview URL: $ALIAS_URL"
-
-      - name: "🔗 Extract deployment URL"
-        id: extract-deployment-url
-        if: github.event_name == 'push' && matrix.path == '.'
-        run: |
-          # Extract the custom domain from deployment-url and format as proper URL
-          DEPLOYMENT_URL=$(echo "${{ steps.wrangler.outputs.deployment-url }}" | sed 's/ (custom domain)//' | sed 's/^/https:\/\//')
-          echo "formatted-url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
-
-      - name: "📍 Finish deployment"
-        if: always() && steps.deployment.outcome == 'success'
-        uses: chrnorm/deployment-status@6df8d036fd2fee9eb82936733953da1f8382b41e # v2.0.4
-        with:
-          token: ${{ github.token }}
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: ${{ steps.wrangler.outcome == 'success' && 'success' || 'failure' }}
-          environment-url: ${{ github.event_name == 'pull_request' && steps.extract-url.outputs.alias-url || (matrix.path == '.' && steps.extract-deployment-url.outputs.formatted-url || '') }}
-
-      - name: "📤 Set job outputs"
-        id: set-outputs
-        if: matrix.name == 'www' && github.event_name == 'pull_request'
-        run: |
-          echo "www-preview-url=${{ steps.extract-url.outputs.alias-url }}" >> $GITHUB_OUTPUT
-
-  lighthouse:
-    # Workaround for https://github.com/cloudflare/workers-sdk/issues/9022
-    # wrangler dev fails with "import.meta.url is undefined" when using content collections
-    # Once fixed, revert to testing against local wrangler dev server
-    needs: cloudflare
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: read
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 22
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Get preview URL
-        id: preview-url
-        run: |
-          # Extract the preview URL from the deployment
-          URL="${{ needs.cloudflare.outputs.www-preview-url }}"
-          if [ -z "$URL" ]; then
-            echo "No preview URL found, skipping Lighthouse"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "url=$URL" >> $GITHUB_OUTPUT
-            echo "Testing Lighthouse against: $URL"
-          fi
-
-      - name: Run Lighthouse CI
-        if: steps.preview-url.outputs.skip != 'true'
-        run: npx @lhci/cli@0.15.x autorun --collect.url=${{ steps.preview-url.outputs.url }}
-        env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          command: deploy

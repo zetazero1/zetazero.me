@@ -2,7 +2,7 @@ export const SITE = {
   website: "https://zetazero.me/",
   author: "zetazero",
   profile: "https://zetazero.me/",
-  desc: "Programmer, photographer, cyclist.",
+  desc: "Personal notes on technology, tools, and learning.",
   title: "zetazero",
   ogImage: "ben-drucker-sq.png",
   lightAndDarkMode: true,
@@ -12,7 +12,7 @@ export const SITE = {
   showBackButton: true, // show back button in post detail
   viewSource: {
     text: "View Source",
-    url: "https://github.com/zetazero1/zetazero1.me/blob/HEAD/",
+    url: "https://github.com/zetazero1/zetazero.me/blob/HEAD/",
   },
   dynamicOgImage: false,
   dir: "ltr", // "rtl" | "auto"

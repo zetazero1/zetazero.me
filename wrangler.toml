@@ -1,5 +1,4 @@
-name = "bendrucker-me"
-# The adapter's own default, wrapped so `Publish` can be exported alongside it.
+name = "zetazero-me"
 main = "src/worker.ts"
 compatibility_date = "2025-07-28"
 compatibility_flags = ["nodejs_compat"]
@@ -14,40 +13,12 @@ directory = "dist"
 binding = "ASSETS"
 
 [[routes]]
-pattern = "www.bendrucker.me"
+pattern = "zetazero.me"
 custom_domain = true
 
-[[d1_databases]]
-binding = "ACTIVITY_DB"
-database_name = "bendrucker-activity"
-database_id = "fea2c18d-3c27-4a2a-80be-8622fc4ebc59"
-migrations_dir = "migrations"
-
-[[kv_namespaces]]
-binding = "SESSION"
-
-# Read-only in practice: the only route that touches it serves ride photos, and
-# it rejects any key outside the photo prefix. The binding itself reaches every
-# raw telemetry file in the bucket.
-[[r2_buckets]]
-binding = "RAW"
-bucket_name = "activity-hub-raw"
-
-# Resizes ride photos to the thumbnails the cards show. The zone's URL
-# transformations are not enabled, so this binding is the only resizer.
-[images]
-binding = "IMAGES"
-
-# Cuts the poster frame a video's card thumbnail shows. The Images binding
-# above rejects a video outright, so this is the only thing standing between a
-# 48px tile and an eleven megabyte download.
-[media]
-binding = "MEDIA"
-
-# The activity pages' ETag carries the version id, so a browser revalidating
-# after a deploy is handed the new HTML rather than a 304 for the old one.
-[version_metadata]
-binding = "CF_VERSION_METADATA"
+[[routes]]
+pattern = "www.zetazero.me"
+custom_domain = true
 
 [observability]
 enabled = true

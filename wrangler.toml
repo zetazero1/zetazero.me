@@ -16,10 +16,6 @@ binding = "ASSETS"
 pattern = "zetazero.me"
 custom_domain = true
 
-[[routes]]
-pattern = "www.zetazero.me"
-custom_domain = true
-
 [observability]
 enabled = true
 

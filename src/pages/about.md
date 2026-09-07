@@ -5,6 +5,16 @@ description: About zetazero.
 
 ## About
 
-This is zetazero's personal blog. It contains notes about technology, tools, and learning.
+I am zetazero. This is my personal blog for notes about technology, tools, and learning.
 
-The site's layout and reading experience are based on the open-source Astro project [bendrucker.me](https://github.com/bendrucker/bendrucker.me). The articles published here are from zetazero's own public blog.
+## Code
+
+You can find my programming projects on [GitHub](https://github.com/zetazero1). I write about the systems I build, the tools I use, and the ideas I am working through.
+
+## Work
+
+Engineer working on software, automation, and personal knowledge systems.
+
+## Source Code
+
+The source code for this website is available on [GitHub](https://github.com/zetazero1/zetazero.me).

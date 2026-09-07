@@ -19,8 +19,9 @@ html[data-theme="light"] {
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --background: #212737;
-  --foreground: #eaedf3;
+  /* Match the warmer, slightly lighter dark palette from the reference view. */
+  --background: #272b37;
+  --foreground: #f1f1f1;
   --accent: #ff6b01;
   --muted: #343f60;
   --border: #ab4b08;

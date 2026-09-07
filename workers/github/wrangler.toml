@@ -1,0 +1,21 @@
+name = "github"
+main = "main.ts"
+workers_dev = false
+compatibility_date = "2025-07-28"
+compatibility_flags = ["nodejs_compat"]
+upload_source_maps = true
+
+[[d1_databases]]
+binding = "ACTIVITY_DB"
+database_name = "bendrucker-activity"
+database_id = "fea2c18d-3c27-4a2a-80be-8622fc4ebc59"
+migrations_dir = "../../migrations"
+
+[observability]
+enabled = true
+
+[observability.traces]
+enabled = true
+
+[triggers]
+crons = ["0 * * * *"]

@@ -5,6 +5,8 @@ description: How I used /impeccable to take my personal blog from rough to polis
 tags:
   - Personal
 ---
+<div class="post-content">
+
 
 <p data-en="I have a personal blog. It's nothing fancy: static HTML, a dark theme, a handwriting animation on the hero. It worked. It looked fine. But &quot;fine&quot; and &quot;polished&quot; are different things." data-zh="我有一个个人博客。没什么花哨的：纯静态 HTML、暗色主题、首页一个手写动画。能用，看着还行。但「还行」和「精致」是两回事。">I have a personal blog. It's nothing fancy: static HTML, a dark theme, a handwriting animation on the hero. It worked. It looked fine. But "fine" and "polished" are different things.</p>
 
@@ -99,3 +101,5 @@ tags:
 <p data-en="The full command list is in the <a href='https://impeccable.style/docs/'>docs</a>. But in practice, you'll use maybe 5 or 6 commands regularly. The rest are there when you need them." data-zh="完整命令列表在<a href='https://impeccable.style/docs/'>文档</a>中。但实际上，你经常用的可能就 5、6 个命令。其他的在你需要时才会用到。">The full command list is in the <a href="https://impeccable.style/docs/">docs</a>. But in practice, you'll use maybe 5 or 6 commands regularly. The rest are there when you need them.</p>
 
 <p data-en="Published <time datetime=&quot;2026-06-01&quot;>01 Jun 2026</time>" data-zh="发布于 <time datetime=&quot;2026-06-01&quot;>2026 年 6 月 1 日</time>">Published <time datetime="2026-06-01">01 Jun 2026</time></p>
+
+</div>

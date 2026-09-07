@@ -5,6 +5,8 @@ description: How I built a personal site with GitHub Pages, a custom domain, sem
 tags:
   - Personal
 ---
+<div class="post-content">
+
 
 <p data-en="I recently went through the process of setting up my personal website using GitHub Pages. What seemed like a simple task turned into a deep dive into static site generators, DNS configuration, SSL certificates, and web performance optimization. Here's what I learned along the way." data-zh="我最近用 GitHub Pages 搭建了我的个人网站。看似简单的任务，结果深入研究了静态站点生成器、DNS 配置、SSL 证书和 Web 性能优化。以下是我学到的东西。">I recently went through the process of setting up my personal website using GitHub Pages. What seemed like a simple task turned into a deep dive into static site generators, DNS configuration, SSL certificates, and web performance optimization. Here's what I learned along the way.</p>
 
@@ -221,3 +223,5 @@ tags:
 <p data-en="The code for this site is available on <a href=&quot;https://github.com/Ha1baraA11/Ha1baraA11.github.io&quot;>GitHub</a>. Feel free to use it as a starting point for your own site." data-zh="这个站点的代码在 <a href=&quot;https://github.com/Ha1baraA11/Ha1baraA11.github.io&quot;>GitHub</a> 上。欢迎拿去做你自己站点的起点。">The code for this site is available on <a href="https://github.com/Ha1baraA11/Ha1baraA11.github.io">GitHub</a>. Feel free to use it as a starting point for your own site.</p>
 
 <p data-en="Published <time datetime=&quot;2026-05-04&quot;>04 May 2026</time>" data-zh="发布于 <time datetime=&quot;2026-05-04&quot;>2026 年 5 月 4 日</time>">Published <time datetime="2026-05-04">04 May 2026</time></p>
+
+</div>

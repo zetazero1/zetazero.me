@@ -5,6 +5,8 @@ description: A practical approach to consolidating passwords, passkeys, and one-
 tags:
   - Personal
 ---
+<div class="post-content">
+
 
       <blockquote><p data-en="Passwords, passkeys, and two-factor codes are easier to live with when they have <strong>one deliberate home</strong>. The important word is deliberate." data-zh="当密码、Passkey 和双重验证代码都有一个经过认真选择的归处，安全会更容易坚持。重点在于「<strong>认真选择</strong>」。">Passwords, passkeys, and two-factor codes are easier to live with when they have <strong>one deliberate home</strong>. The important word is deliberate.</p></blockquote>
 
@@ -59,3 +61,5 @@ tags:
 <li><a href="https://support.1password.com/membership-billing-policy/" data-en="1Password Support: Subscription billing policy" data-zh="1Password 支持文档：订阅计费政策">1Password Support: Subscription billing policy</a></li>
       </ul>
       <p data-en="Published <time datetime=&quot;2026-07-12&quot;>12 Jul 2026</time>" data-zh="发布于 <time datetime=&quot;2026-07-12&quot;>2026 年 7 月 12 日</time>">Published <time datetime="2026-07-12">12 Jul 2026</time></p>
+
+</div>

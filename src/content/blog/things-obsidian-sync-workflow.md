@@ -5,6 +5,8 @@ description: Using Claude Code to sync task management and journaling, so plans 
 tags:
   - Personal
 ---
+<div class="post-content">
+
 
 <blockquote>
   <p data-en="Using Claude Code to sync task management and journaling, so plans only need to be written once." data-zh="用 Claude Code 自动同步待办管理和日记系统，让计划只写一遍。">Using Claude Code to sync task management and journaling, so plans only need to be written once.</p>
@@ -228,3 +230,5 @@ Status: incomplete</code></pre>
 <p data-en="Things manages structured tasks. Obsidian manages journals and habits. Claude Code manages sync. Each does its own job." data-zh="Things 3 管结构化任务，Obsidian 管日记和习惯，Claude Code 管同步。三者各司其职。">Things manages structured tasks. Obsidian manages journals and habits. Claude Code manages sync. Each does its own job.</p>
 
 <p data-en="Published <time datetime=&quot;2026-06-01&quot;>01 Jun 2026</time>" data-zh="发布于 <time datetime=&quot;2026-06-01&quot;>2026 年 6 月 1 日</time>">Published <time datetime="2026-06-01">01 Jun 2026</time></p>
+
+</div>

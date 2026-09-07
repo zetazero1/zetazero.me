@@ -1,4 +1,5 @@
 ---
+layout: ../layouts/AboutLayout.astro
 title: About
 description: About zetazero.
 ---

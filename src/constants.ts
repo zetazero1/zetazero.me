@@ -2,8 +2,6 @@ import type { Props } from "astro";
 import IconMail from "@/assets/icons/IconMail.svg";
 import IconGitHub from "@/assets/icons/IconGitHub.svg";
 import IconBrandX from "@/assets/icons/IconBrandX.svg";
-import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
-import IconStrava from "@/assets/icons/IconStrava.svg";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconWhatsapp from "@/assets/icons/IconWhatsapp.svg";
 import IconFacebook from "@/assets/icons/IconFacebook.svg";
@@ -21,27 +19,9 @@ interface Social {
 export const SOCIALS: Social[] = [
   {
     name: "GitHub",
-    href: "https://github.com/bendrucker",
+    href: "https://github.com/zetazero1",
     linkTitle: `${SITE.title} on GitHub`,
     icon: IconGitHub,
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/bendrucker/",
-    linkTitle: `${SITE.title} on LinkedIn`,
-    icon: IconLinkedin,
-  },
-  {
-    name: "Strava",
-    href: "https://www.strava.com/athletes/5723594",
-    linkTitle: `${SITE.title} on Strava`,
-    icon: IconStrava,
-  },
-  {
-    name: "Mail",
-    href: "mailto:bvdrucker@gmail.com",
-    linkTitle: `Send an email to ${SITE.title}`,
-    icon: IconMail,
   },
   {
     name: "RSS",

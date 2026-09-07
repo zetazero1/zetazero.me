@@ -1,0 +1,20 @@
+{
+  "name": "@workspace/github",
+  "type": "module",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@octokit/auth-token": "^6.0.0",
+    "@octokit/graphql": "^9.0.4",
+    "@workspace/logger": "*",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^6.0.3"
+  }
+}

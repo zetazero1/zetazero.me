@@ -1,0 +1,45 @@
+# build output
+dist/
+public/
+
+# generated types
+.astro/
+
+# histoire story book output
+.histoire/
+
+# dependencies
+node_modules
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+.dev.vars
+
+**/.wrangler/
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+.lighthouseci/
+
+# TypeScript incremental build info
+tsconfig.tsbuildinfo
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+
+# terraform
+.terraform/
+*.tfstate*

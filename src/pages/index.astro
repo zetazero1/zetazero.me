@@ -1,29 +1,45 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
-import Main from "@/layouts/Main.astro";
-import Card from "@/components/Card.astro";
-import { getSortedPosts } from "@/blog/posts";
+export const prerender = true;
 
-const posts = getSortedPosts(await getCollection("blog"));
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Card from "@/components/Card.astro";
+import { postFilter } from "@/blog/posts";
+
+const posts = await getCollection("blog", postFilter);
+const months = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
 ---
 
-<Layout
-  description="Personal notes on technology, tools, and learning."
-  sourcePath="src/pages/index.astro"
->
-  <Main pageTitle="Posts" pageDesc="All the articles I've posted.">
-    <ul>
-      {posts.map((post) => <Card {...post} />)}
-    </ul>
+<Layout title="Archives | zetazero" sourcePath="src/pages/index.astro">
+  <Main pageTitle="Archives" pageDesc="All the articles I've posted.">
+    {
+      Object.entries(Object.groupBy(posts, (post) => post.data.pubDatetime.getFullYear()))
+        .toSorted(([a], [b]) => Number(b) - Number(a))
+        .map(([year, yearGroup = []]) => (
+          <div>
+            <span class="text-2xl font-bold">{year}</span>
+            <sup class="text-sm">{yearGroup.length}</sup>
+            {Object.entries(Object.groupBy(yearGroup, (post) => post.data.pubDatetime.getMonth() + 1))
+              .toSorted(([a], [b]) => Number(b) - Number(a))
+              .map(([month, monthGroup = []]) => (
+                <div class="flex flex-col sm:flex-row">
+                  <div class="mt-6 min-w-36 text-lg sm:my-6">
+                    <span class="font-bold">{months[Number(month) - 1]}</span>
+                    <sup class="text-xs">{monthGroup.length}</sup>
+                  </div>
+                  <ul>
+                    {monthGroup
+                      .toSorted((a, b) => b.data.pubDatetime.getTime() - a.data.pubDatetime.getTime())
+                      .map((post) => <Card {...post} />)}
+                  </ul>
+                </div>
+              ))}
+          </div>
+        ))
+    }
   </Main>
 </Layout>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const mainContent = document.querySelector("#main-content");
-    if (mainContent instanceof HTMLElement && mainContent.dataset.layout) {
-      sessionStorage.setItem("backUrl", "/");
-    }
-  });
-</script>

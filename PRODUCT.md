@@ -26,6 +26,7 @@ Do not use a generic SaaS landing page, dashboard cards, bright gradients, or un
 - Keep navigation small and predictable.
 - Preserve the reference site's typographic rhythm and dark reading surface.
 - Use only the user's own public blog content.
+- Keep deployment infrastructure separate from the reading experience.
 
 ## Accessibility & Inclusion
 

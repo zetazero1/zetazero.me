@@ -22,7 +22,7 @@ html[data-theme="dark"] {
   /* Match the warmer, slightly lighter dark palette from the reference view. */
   --background: #272b37;
   --foreground: #f1f1f1;
-  --accent: #ff6b01;
+  --accent: #ff9832;
   --muted: #343f60;
   --border: #ab4b08;
   --bridge: #e0594a;

@@ -6,7 +6,6 @@ tags:
   - Personal
 ---
 
-<article>
       <blockquote><p data-en="Passwords, passkeys, and two-factor codes are easier to live with when they have <strong>one deliberate home</strong>. The important word is deliberate." data-zh="当密码、Passkey 和双重验证代码都有一个经过认真选择的归处，安全会更容易坚持。重点在于「<strong>认真选择</strong>」。">Passwords, passkeys, and two-factor codes are easier to live with when they have <strong>one deliberate home</strong>. The important word is deliberate.</p></blockquote>
 
       <p data-en="For a long time, my credentials were spread across browser autofill, Apple Passwords, and separate authenticator apps. None of those tools was inherently wrong. The friction came from not knowing which one would appear, which copy was current, or where the recovery material lived. I wanted <strong>one everyday interface</strong>: 1Password." data-zh="很长一段时间，我的凭据分散在浏览器自动填充、Apple 密码和独立验证器 App 里。它们本身都没有错；问题在于我不知道哪个会弹出来、哪份密码是最新的，以及恢复资料在哪里。我想要一个<strong>日常使用的统一入口</strong>：1Password。">For a long time, my credentials were spread across browser autofill, Apple Passwords, and separate authenticator apps. None of those tools was inherently wrong. The friction came from not knowing which one would appear, which copy was current, or where the recovery material lived. I wanted <strong>one everyday interface</strong>: 1Password.</p>
@@ -25,10 +24,10 @@ tags:
 
       <h3 data-en="A small cleanup standard" data-zh="一套简洁的整理标准">A small cleanup standard</h3>
       <ul>
-        <li data-en="<strong>One Login item per account</strong> whenever possible, with the primary domain in its website field." data-zh="尽量做到<strong>每个账户只保留一个登录项目</strong>，并在网站字段中填写主域名。"><strong>One Login item per account</strong> whenever possible, with the primary domain in its website field.</li>
-        <li data-en="Add a specific sign-in URL only when a service genuinely needs a different subdomain or flow." data-zh="只有服务确实依赖不同子域名或登录流程时，才添加具体登录网址。">Add a specific sign-in URL only when a service genuinely needs a different subdomain or flow.</li>
-        <li data-en="After changing a password, <strong>confirm the saved item</strong> before closing the site. A confirmation click is cheaper than an account-recovery flow." data-zh="改完密码后，在关闭网页前<strong>确认保存项目</strong>是否已更新。一次确认点击，远比账户恢复流程便宜。">After changing a password, <strong>confirm the saved item</strong> before closing the site. A confirmation click is cheaper than an account-recovery flow.</li>
-        <li data-en="On iPhone and iPad, make 1Password the chosen password and passkey provider, then test one ordinary login on each device." data-zh="在 iPhone 和 iPad 上选择 1Password 作为密码与 Passkey 提供方，然后在每台设备上测试一个普通登录。">On iPhone and iPad, make 1Password the chosen password and passkey provider, then test one ordinary login on each device.</li>
+<li data-en="<strong>One Login item per account</strong> whenever possible, with the primary domain in its website field." data-zh="尽量做到<strong>每个账户只保留一个登录项目</strong>，并在网站字段中填写主域名。"><strong>One Login item per account</strong> whenever possible, with the primary domain in its website field.</li>
+<li data-en="Add a specific sign-in URL only when a service genuinely needs a different subdomain or flow." data-zh="只有服务确实依赖不同子域名或登录流程时，才添加具体登录网址。">Add a specific sign-in URL only when a service genuinely needs a different subdomain or flow.</li>
+<li data-en="After changing a password, <strong>confirm the saved item</strong> before closing the site. A confirmation click is cheaper than an account-recovery flow." data-zh="改完密码后，在关闭网页前<strong>确认保存项目</strong>是否已更新。一次确认点击，远比账户恢复流程便宜。">After changing a password, <strong>confirm the saved item</strong> before closing the site. A confirmation click is cheaper than an account-recovery flow.</li>
+<li data-en="On iPhone and iPad, make 1Password the chosen password and passkey provider, then test one ordinary login on each device." data-zh="在 iPhone 和 iPad 上选择 1Password 作为密码与 Passkey 提供方，然后在每台设备上测试一个普通登录。">On iPhone and iPad, make 1Password the chosen password and passkey provider, then test one ordinary login on each device.</li>
       </ul>
 
       <h2 data-en="TOTP is convenient, but recovery codes still matter" data-zh="TOTP 很方便，但恢复代码依然重要">TOTP is convenient, but recovery codes still matter</h2>
@@ -54,9 +53,9 @@ tags:
 
       <h2 data-en="References" data-zh="参考资料">References</h2>
       <ul>
-        <li><a href="https://support.1password.com/save-use-passkeys/" data-en="1Password Support: Save and sign in with passkeys" data-zh="1Password 支持文档：保存并使用 Passkey 登录">1Password Support: Save and sign in with passkeys</a></li>
-        <li><a href="https://support.1password.com/one-time-passwords/" data-en="1Password Support: Use 1Password as an authenticator" data-zh="1Password 支持文档：将 1Password 用作验证器">1Password Support: Use 1Password as an authenticator</a></li>
-        <li><a href="https://support.1password.com/secret-key-security/" data-en="1Password Support: About your Secret Key" data-zh="1Password 支持文档：关于 Secret Key">1Password Support: About your Secret Key</a></li>
-        <li><a href="https://support.1password.com/membership-billing-policy/" data-en="1Password Support: Subscription billing policy" data-zh="1Password 支持文档：订阅计费政策">1Password Support: Subscription billing policy</a></li>
+<li><a href="https://support.1password.com/save-use-passkeys/" data-en="1Password Support: Save and sign in with passkeys" data-zh="1Password 支持文档：保存并使用 Passkey 登录">1Password Support: Save and sign in with passkeys</a></li>
+<li><a href="https://support.1password.com/one-time-passwords/" data-en="1Password Support: Use 1Password as an authenticator" data-zh="1Password 支持文档：将 1Password 用作验证器">1Password Support: Use 1Password as an authenticator</a></li>
+<li><a href="https://support.1password.com/secret-key-security/" data-en="1Password Support: About your Secret Key" data-zh="1Password 支持文档：关于 Secret Key">1Password Support: About your Secret Key</a></li>
+<li><a href="https://support.1password.com/membership-billing-policy/" data-en="1Password Support: Subscription billing policy" data-zh="1Password 支持文档：订阅计费政策">1Password Support: Subscription billing policy</a></li>
       </ul>
       <p data-en="Published <time datetime=&quot;2026-07-12&quot;>12 Jul 2026</time>" data-zh="发布于 <time datetime=&quot;2026-07-12&quot;>2026 年 7 月 12 日</time>">Published <time datetime="2026-07-12">12 Jul 2026</time></p>

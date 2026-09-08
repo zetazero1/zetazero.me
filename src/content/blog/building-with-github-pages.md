@@ -24,7 +24,7 @@ For a personal blog or portfolio site, GitHub Pages is more than enough. It serv
 
 GitHub Pages for user sites requires a specific repository naming convention. Your repo must be named `username.github.io`, where `username` is your GitHub username. This is non-negotiable.
 
-    gh repo create Ha1baraA11.github.io --public --clone
+    gh repo create username.github.io --public --clone
 
 The `--public` flag is important. GitHub Pages only works with public repositories on the free tier (unless you have GitHub Pro).
 
@@ -42,20 +42,20 @@ I went with a hybrid approach: **pure HTML/CSS for the layout**, with Jekyll han
 
 ### Step 3: Configure a Custom Domain
 
-If you own a domain (I bought `zetazero.top`), you can point it to GitHub Pages. This involves two things:
+If you own a domain (for example, `example.com`), you can point it to GitHub Pages. This involves two things:
 
 #### DNS Configuration
 
-You need to create A records pointing to GitHub's IP addresses:
+For illustration, the DNS table below uses documentation-only placeholder addresses. Check GitHub's current documentation for the real IP addresses before configuring DNS:
 
 <div class="table-scroll" role="region" aria-label="DNS configuration table" tabindex="0">
 
 | Record Type | Host | Value              |
 |-------------|------|--------------------|
-| A           | @    | 185.199.108.153    |
-| A           | @    | 185.199.109.153    |
-| A           | @    | 185.199.110.153    |
-| A           | @    | 185.199.111.153    |
+| A           | @    | 203.0.113.10       |
+| A           | @    | 203.0.113.11       |
+| A           | @    | 203.0.113.12       |
+| A           | @    | 203.0.113.13       |
 | CNAME       | www  | username.github.io |
 
 </div>
@@ -64,7 +64,7 @@ You need to create A records pointing to GitHub's IP addresses:
 
 Add a file named `CNAME` to the root of your repository with your domain:
 
-    zetazero.top
+    example.com
 
 This tells GitHub Pages to serve your site at that domain instead of `username.github.io`.
 
@@ -72,7 +72,7 @@ This tells GitHub Pages to serve your site at that domain instead of `username.g
 
 GitHub automatically provisions a free SSL certificate via Let's Encrypt after you verify your domain. The process involves adding a TXT record to your DNS:
 
-    _github-pages-challenge-username.zetazero.top  TXT  "your-verification-code"
+    _github-pages-challenge-username.example.com  TXT  "your-verification-code"
 
 After verification, HTTPS is enabled automatically. This can take anywhere from a few minutes to an hour.
 
@@ -195,6 +195,6 @@ A personal blog doesn't need edge functions, ISR, or a CDN with 200 PoPs. GitHub
 
 Building a personal site with GitHub Pages is a great way to learn web fundamentals. You'll encounter DNS, SSL, CSS, HTML, and JavaScript in a low-stakes environment. And when you're done, you have a permanent home on the internet that you fully control.
 
-The code for this site is available on [GitHub](https://github.com/Ha1baraA11/Ha1baraA11.github.io). Feel free to use it as a starting point for your own site.
+The code for this site is available in your own GitHub repository. Feel free to use it as a starting point for your own site.
 
 Published 04 May 2026

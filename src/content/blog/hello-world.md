@@ -6,7 +6,7 @@ tags:
   - Personal
 ---
 
-This is my first post on zetazero.top. Built with HTML & CSS and hosted on GitHub Pages.
+This is my first post on a custom domain. Built with HTML & CSS and hosted on GitHub Pages.
 
 More coming soon.
 

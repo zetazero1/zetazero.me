@@ -26,6 +26,10 @@ const isActive = (path: string) => {
 
   return currentPath === path || currentSegment === pathSegment;
 };
+
+const notesActive = isActive("/notes");
+const notesHref = notesActive ? "/" : "/notes";
+const notesLabel = notesActive ? "Back to Articles" : "Notes";
 ---
 
 <header class:list={{ relative: variant === "home" }}>
@@ -45,8 +49,8 @@ const isActive = (path: string) => {
               About
             </a>
             {SITE.showArchives && (
-              <a href="/notes" class="hover:text-accent">
-                Notes
+              <a href={notesHref} class="hover:text-accent">
+                {notesLabel}
               </a>
             )}
           </nav>
@@ -86,10 +90,10 @@ const isActive = (path: string) => {
               </a>
               {SITE.showArchives && (
                 <a
-                  href="/notes"
+                  href={notesHref}
                   class="flex min-h-12 items-center px-5 active:bg-muted"
                 >
-                  Notes
+                  {notesLabel}
                 </a>
               )}
             </nav>
@@ -145,19 +149,18 @@ const isActive = (path: string) => {
                   {SITE.showArchives && (
                     <li class="col-span-2">
                       <LinkButton
-                        href="/notes"
+                        href={notesHref}
                         class:list={[
                           "focus-outline flex justify-center p-3 sm:p-1",
                           {
-                            "active-nav [&>svg]:stroke-accent":
-                              isActive("/notes"),
+                            "active-nav [&>svg]:stroke-accent": notesActive,
                           },
                         ]}
-                        ariaLabel="notes"
-                        title="Notes"
+                        ariaLabel={notesLabel}
+                        title={notesLabel}
                       >
                         <IconArchive class="hidden sm:inline-block" />
-                        <span class="sm:sr-only">Notes</span>
+                        <span class="sm:sr-only">{notesLabel}</span>
                       </LinkButton>
                     </li>
                   )}

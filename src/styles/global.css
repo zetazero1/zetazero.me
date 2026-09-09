@@ -80,6 +80,22 @@ html[data-theme="dark"] {
   @apply underline decoration-wavy decoration-2 underline-offset-4;
 }
 
+/* Telegram-style radial theme reveal. The snapshots keep the rest of the page
+   still while toggle-theme.js animates one layer's circular clip path. */
+html.theme-transition::view-transition-old(root),
+html.theme-transition::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html.theme-transition-reverse::view-transition-old(root) {
+  z-index: 2;
+}
+
+html.theme-transition-reverse::view-transition-new(root) {
+  z-index: 1;
+}
+
 /* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
 /* Anything that has been anchored to should have extra scroll margin */
 :target {

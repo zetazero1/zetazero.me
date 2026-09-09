@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 import Main from "@/layouts/Main.astro";
 import Layout from "@/layouts/Layout.astro";
 import Card from "@/components/Card.astro";
-import { postFilter } from "@/blog/posts";
+import { articleFilter } from "@/blog/posts";
 import { SITE } from "@/config";
 
 // Redirect to 404 page if `showArchives` config is false
@@ -13,7 +13,7 @@ if (!SITE.showArchives) {
   return Astro.redirect("/404");
 }
 
-const posts = await getCollection("blog", postFilter);
+const posts = await getCollection("blog", articleFilter);
 
 const months = [
   "January",

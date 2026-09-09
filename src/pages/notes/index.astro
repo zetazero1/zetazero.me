@@ -1,0 +1,72 @@
+---
+export const prerender = true;
+
+import { getCollection } from "astro:content";
+import Main from "@/layouts/Main.astro";
+import Layout from "@/layouts/Layout.astro";
+import Card from "@/components/Card.astro";
+import { noteFilter } from "@/blog/posts";
+
+const notes = await getCollection("blog", noteFilter);
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+---
+
+<Layout title="Notes | zetazero" sourcePath="src/pages/notes/index.astro">
+  <Main pageTitle="Notes" pageDesc="Little things from everyday life.">
+    {
+      notes.length === 0 ? (
+        <p class="mt-8 text-foreground/75">No notes yet.</p>
+      ) : (
+        Object.entries(
+          Object.groupBy(notes, (note) => note.data.pubDatetime.getFullYear()),
+        )
+          .toSorted(([a], [b]) => Number(b) - Number(a))
+          .map(([year, yearGroup = []]) => (
+            <div>
+              <span class="text-2xl font-bold">{year}</span>
+              <sup class="text-sm">{yearGroup.length}</sup>
+              {Object.entries(
+                Object.groupBy(
+                  yearGroup,
+                  (note) => note.data.pubDatetime.getMonth() + 1,
+                ),
+              )
+                .toSorted(([a], [b]) => Number(b) - Number(a))
+                .map(([month, monthGroup = []]) => (
+                  <div class="flex flex-col sm:flex-row">
+                    <div class="mt-6 min-w-36 text-lg sm:my-6">
+                      <span class="font-bold">{months[Number(month) - 1]}</span>
+                      <sup class="text-xs">{monthGroup.length}</sup>
+                    </div>
+                    <ul>
+                      {monthGroup
+                        .toSorted(
+                          (a, b) =>
+                            b.data.pubDatetime.getTime() -
+                            a.data.pubDatetime.getTime(),
+                        )
+                        .map((note) => (
+                          <Card {...note} />
+                        ))}
+                    </ul>
+                  </div>
+                ))}
+            </div>
+          ))
+      )
+    }
+  </Main>
+</Layout>

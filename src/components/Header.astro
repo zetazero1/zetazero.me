@@ -45,8 +45,8 @@ const isActive = (path: string) => {
               About
             </a>
             {SITE.showArchives && (
-              <a href="/archives" class="hover:text-accent">
-                Archives
+              <a href="/notes" class="hover:text-accent">
+                Notes
               </a>
             )}
           </nav>
@@ -86,10 +86,10 @@ const isActive = (path: string) => {
               </a>
               {SITE.showArchives && (
                 <a
-                  href="/archives"
+                  href="/notes"
                   class="flex min-h-12 items-center px-5 active:bg-muted"
                 >
-                  Archives
+                  Notes
                 </a>
               )}
             </nav>
@@ -145,19 +145,19 @@ const isActive = (path: string) => {
                   {SITE.showArchives && (
                     <li class="col-span-2">
                       <LinkButton
-                        href="/archives"
+                        href="/notes"
                         class:list={[
                           "focus-outline flex justify-center p-3 sm:p-1",
                           {
                             "active-nav [&>svg]:stroke-accent":
-                              isActive("/archives"),
+                              isActive("/notes"),
                           },
                         ]}
-                        ariaLabel="archives"
-                        title="Archives"
+                        ariaLabel="notes"
+                        title="Notes"
                       >
                         <IconArchive class="hidden sm:inline-block" />
-                        <span class="sm:sr-only">Archives</span>
+                        <span class="sm:sr-only">Notes</span>
                       </LinkButton>
                     </li>
                   )}

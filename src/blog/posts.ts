@@ -8,6 +8,12 @@ export const postFilter = ({ data }: CollectionEntry<"blog">) => {
   return !data.draft && (import.meta.env.DEV || isPublishTimePassed);
 };
 
+export const articleFilter = (post: CollectionEntry<"blog">) =>
+  postFilter(post) && post.data.kind === "article";
+
+export const noteFilter = (post: CollectionEntry<"blog">) =>
+  postFilter(post) && post.data.kind === "note";
+
 export const getSortedPosts = (posts: CollectionEntry<"blog">[]) =>
   posts
     .filter((post) => postFilter(post))

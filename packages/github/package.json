@@ -11,7 +11,7 @@
     "@octokit/auth-token": "^6.0.0",
     "@octokit/graphql": "^9.0.4",
     "@workspace/logger": "*",
-    "zod": "^4.4.3"
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",

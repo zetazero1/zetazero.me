@@ -84,7 +84,7 @@
     "linguist-languages": "^9.5.0",
     "opentype.js": "^2.0.0",
     "oxlint": "^1.82.0",
-    "oxlint-tsgolint": "^7.0.2001",
+    "oxlint-tsgolint": "^7.0.2002",
     "png-to-ico": "^3.0.2",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",

@@ -36,7 +36,7 @@
     "@astrojs/sitemap": "3.7.4",
     "@astrojs/vue": "7.0.3",
     "@cf-wasm/resvg": "^0.4.0",
-    "@cf-wasm/satori": "^0.4.0",
+    "@cf-wasm/satori": "^0.4.2",
     "@date-fns/tz": "^1.5.0",
     "@mapbox/vector-tile": "^3.0.0",
     "@sentry/cloudflare": "^10.74.0",

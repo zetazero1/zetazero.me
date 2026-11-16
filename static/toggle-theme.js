@@ -162,17 +162,17 @@ async function runReveal({
 // set early so no page flashes / CSS is made aware
 reflectPreference();
 
+function setThemeFeature() {
+  // set on load so screen readers can get the latest value on the button
+  reflectPreference();
+
+  // now this script can find and listen for clicks on the control
+  document.querySelector("#theme-btn")?.addEventListener("click", (event) => {
+    switchTheme(event.currentTarget);
+  });
+}
+
 window.addEventListener("load", () => {
-  function setThemeFeature() {
-    // set on load so screen readers can get the latest value on the button
-    reflectPreference();
-
-    // now this script can find and listen for clicks on the control
-    document.querySelector("#theme-btn")?.addEventListener("click", (event) => {
-      switchTheme(event.currentTarget);
-    });
-  }
-
   setThemeFeature();
 
   // Runs on view transitions navigation

@@ -1,5 +1,5 @@
 ---
-title: 'Building a Personal Site with GitHub Pages'
+title: "Building a Personal Site with GitHub Pages"
 pubDatetime: 2026-05-04T00:00:00+08:00
 description: How I built a personal site with GitHub Pages, a custom domain, semantic HTML, and a restrained reading-first design.
 tags:
@@ -51,7 +51,7 @@ For illustration, the DNS table below uses documentation-only placeholder addres
 <div class="table-scroll" role="region" aria-label="DNS configuration table" tabindex="0">
 
 | Record Type | Host | Value              |
-|-------------|------|--------------------|
+| ----------- | ---- | ------------------ |
 | A           | @    | 203.0.113.10       |
 | A           | @    | 203.0.113.11       |
 | A           | @    | 203.0.113.12       |
@@ -82,7 +82,7 @@ I spent a lot of time thinking about the design. My reference was [industrialemp
 
 ### What Makes It Work
 
-The design succeeds because of what it *doesn't* do. There are no:
+The design succeeds because of what it _doesn't_ do. There are no:
 
 - Hero images or background videos
 - Complex multi-column layouts
@@ -135,7 +135,7 @@ The font sizes scale across three breakpoints:
 <div class="table-scroll" role="region" aria-label="Responsive typography table" tabindex="0">
 
 | Viewport       | Body Text | H1       | H2       |
-|----------------|-----------|----------|----------|
+| -------------- | --------- | -------- | -------- |
 | \< 600px       | 1rem      | 2.074rem | 1.728rem |
 | 600px – 1199px | 1.1rem    | 4.398rem | 3.11rem  |
 | ≥ 1200px       | 1.2rem    | 6.076rem | 4.05rem  |

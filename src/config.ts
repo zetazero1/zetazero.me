@@ -4,7 +4,6 @@ export const SITE = {
   profile: "https://zetazero.me/",
   desc: "Personal notes on technology, tools, and learning.",
   title: "zetazero",
-  ogImage: "ben-drucker-sq.png",
   lightAndDarkMode: true,
   postPerPage: 10,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes

@@ -111,39 +111,52 @@ function switchTheme(button) {
     2000,
   );
 
+  void runReveal({ transition, root, reveal, goingLight, safetyTimeout });
+}
+
+async function runReveal({
+  transition,
+  root,
+  reveal,
+  goingLight,
+  safetyTimeout,
+}) {
   let revealAnimation;
-  transition.ready
-    .then(() => {
-      const keyframes = [
-        {
-          clipPath: `circle(0 at ${reveal.x}px ${reveal.y}px)`,
-        },
-        {
-          clipPath: `circle(${reveal.radius}px at ${reveal.x}px ${reveal.y}px)`,
-        },
-      ];
+  try {
+    await transition.ready;
+    const keyframes = [
+      {
+        clipPath: `circle(0 at ${reveal.x}px ${reveal.y}px)`,
+      },
+      {
+        clipPath: `circle(${reveal.radius}px at ${reveal.x}px ${reveal.y}px)`,
+      },
+    ];
 
-      revealAnimation = root.animate(
-        goingLight ? keyframes.slice().reverse() : keyframes,
-        {
-          duration: goingLight ? 500 : 600,
-          easing: "cubic-bezier(.4, 0, .2, 1)",
-          pseudoElement: `::view-transition-${goingLight ? "old" : "new"}(root)`,
-          fill: "forwards",
-        },
-      );
-    })
-    .catch(() => {});
+    revealAnimation = root.animate(
+      goingLight ? keyframes.toReversed() : keyframes,
+      {
+        duration: goingLight ? 500 : 600,
+        easing: "cubic-bezier(.4, 0, .2, 1)",
+        pseudoElement: `::view-transition-${goingLight ? "old" : "new"}(root)`,
+        fill: "forwards",
+      },
+    );
+  } catch {
+    // The transition was skipped before it was ready.
+  }
 
-  transition.finished
-    .catch(() => {})
-    .finally(() => {
-      window.clearTimeout(safetyTimeout);
-      revealAnimation?.cancel();
-      if (activeThemeTransition !== transition) return;
-      root.classList.remove("theme-transition", "theme-transition-reverse");
-      activeThemeTransition = undefined;
-    });
+  try {
+    await transition.finished;
+  } catch {
+    // A skipped transition still needs the cleanup below.
+  }
+
+  window.clearTimeout(safetyTimeout);
+  revealAnimation?.cancel();
+  if (activeThemeTransition !== transition) return;
+  root.classList.remove("theme-transition", "theme-transition-reverse");
+  activeThemeTransition = undefined;
 }
 
 // set early so no page flashes / CSS is made aware

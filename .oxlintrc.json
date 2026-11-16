@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript", "vue", "unicorn", "oxc", "promise"],
+  "plugins": ["typescript", "unicorn", "oxc", "promise"],
   "categories": {
     "correctness": "error",
     "suspicious": "error"
@@ -12,7 +12,6 @@
   },
   "ignorePatterns": [
     "dist/**",
-    ".histoire/**",
     ".worktrees/**",
     "tmp/**",
     ".astro",

@@ -1,5 +1,5 @@
 ---
-title: 'Making 1Password My Security Home'
+title: "Making 1Password My Security Home"
 pubDatetime: 2026-07-12T00:00:00+08:00
 description: A practical approach to consolidating passwords, passkeys, and one-time codes without creating a single point of failure.
 tags:
@@ -49,7 +49,7 @@ If I ever move to another 1Password account, I will keep both accounts available
 
 ## The setup I actually want
 
-One password manager for daily work. One clear autofill provider per device. Unique passwords everywhere. Passkeys when a service supports them. TOTP for convenience, with recovery codes kept separately for the accounts that matter most. And a boring, offline Emergency Kit that can get me back in when convenience fails. *Centralization is useful only when it comes with verification, recovery, and an exit plan.*
+One password manager for daily work. One clear autofill provider per device. Unique passwords everywhere. Passkeys when a service supports them. TOTP for convenience, with recovery codes kept separately for the accounts that matter most. And a boring, offline Emergency Kit that can get me back in when convenience fails. _Centralization is useful only when it comes with verification, recovery, and an exit plan._
 
 ## References
 

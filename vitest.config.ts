@@ -10,7 +10,6 @@ export default defineConfig({
     // produces. The suite runs from a bare `npm ci`, so it reads their source.
     alias: {
       "@workspace/logger": workspace("logger"),
-      "@workspace/github": workspace("github"),
       "@": path.resolve(import.meta.dirname, "src"),
     },
   },

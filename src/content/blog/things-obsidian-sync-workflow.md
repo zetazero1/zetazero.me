@@ -1,5 +1,5 @@
 ---
-title: 'Bridging Things 3 and Obsidian: My Daily Planning Sync Workflow'
+title: "Bridging Things 3 and Obsidian: My Daily Planning Sync Workflow"
 pubDatetime: 2026-06-01T00:00:00+08:00
 description: Using Claude Code to sync task management and journaling, so plans only need to be written once.
 tags:
@@ -105,7 +105,7 @@ Analyzes the user's message and automatically determines which Skill to call:
 <div class="table-scroll" role="region" aria-label="Synchronization components table" tabindex="0">
 
 | User says                                     | Routes to                 |
-|-----------------------------------------------|---------------------------|
+| --------------------------------------------- | ------------------------- |
 | "Went for a run today"                        | daily-habits              |
 | "Need to study linear algebra tomorrow"       | daily-plan                |
 | "Had a fight with a friend today"             | daily-review              |
@@ -147,7 +147,7 @@ For habits that happen every day (exercise, reading), set them as daily recurrin
 <div class="table-scroll" role="region" aria-label="Daily recurring tasks table" tabindex="0">
 
 | Habit Keywords                          | Things To-Do |
-|-----------------------------------------|--------------|
+| --------------------------------------- | ------------ |
 | exercise, gym, run, workout             | Exercise     |
 | reading, book, finished reading, Kindle | Reading      |
 

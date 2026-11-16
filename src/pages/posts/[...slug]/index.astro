@@ -1,16 +1,28 @@
 ---
+export const prerender = true;
+
 import { getCollection } from "astro:content";
 import PostDetails from "@/layouts/PostDetails.astro";
 import { getSortedPosts } from "@/blog/posts";
 import { getPath } from "@/blog/path";
 
-const pathname = Astro.url.pathname.replace(/\/$/, "");
-
 const sortedPosts = getSortedPosts(await getCollection("blog"));
-const post = sortedPosts.find((p) => getPath(p.id, p.filePath) === pathname);
+const post = sortedPosts.find(
+  (p) => getPath(p.id, p.filePath) === Astro.url.pathname.replace(/\/$/, ""),
+);
 
 if (!post) {
   return new Response(null, { status: 404 });
+}
+
+export async function getStaticPaths() {
+  const posts = getSortedPosts(await getCollection("blog"));
+
+  return posts.map((entry) => ({
+    params: {
+      slug: getPath(entry.id, entry.filePath).replace(/^\/posts\//, ""),
+    },
+  }));
 }
 ---
 

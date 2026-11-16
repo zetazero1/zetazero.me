@@ -1,8 +1,6 @@
 import { defineConfig, envField, logHandlers } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
-import sentry from "@sentry/astro";
-import vue from "@astrojs/vue";
 import cloudflare from "@astrojs/cloudflare";
 import { cacheCloudflare } from "@astrojs/cloudflare/cache";
 import { unified } from "@astrojs/markdown-remark";
@@ -17,8 +15,6 @@ import { transformerFileName } from "./src/shiki/fileName";
 import { SITE } from "./src/config";
 import { copyFileSync, mkdirSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
-
-const isDev = process.env.NODE_ENV === "development";
 
 const DEPLOY_SCOPED_CACHE = { maxAge: 3600, swr: 86400 };
 
@@ -53,14 +49,11 @@ export default defineConfig({
   cache: {
     provider: cacheCloudflare(),
   },
-  // On-demand routes that only change on deploy. `/activity` is absent because
-  // its max-age is aligned to the hourly GitHub sync and computed per request
-  // in src/middleware.ts. Prerendered routes are not cached at runtime.
+  // On-demand routes that only change on deploy. Prerendered routes are not
+  // cached at runtime.
   routeRules: {
-    "/": DEPLOY_SCOPED_CACHE,
     "/about": DEPLOY_SCOPED_CACHE,
     "/about.md": DEPLOY_SCOPED_CACHE,
-    "/posts/[...slug]": DEPLOY_SCOPED_CACHE,
     "/posts/[...slug].md": DEPLOY_SCOPED_CACHE,
     "/og.png": DEPLOY_SCOPED_CACHE,
     "/llms.txt": DEPLOY_SCOPED_CACHE,
@@ -69,15 +62,6 @@ export default defineConfig({
     sitemap({
       filter: (page) => SITE.showArchives || !page.endsWith("/archives"),
     }),
-    vue(),
-    ...(isDev
-      ? [
-          sentry({
-            sourceMapsUploadOptions: { enabled: false },
-            autoInstrumentation: { requestHandler: false },
-          }),
-        ]
-      : []),
   ],
   markdown: {
     processor: unified({
@@ -109,32 +93,6 @@ export default defineConfig({
     ],
     ssr: {
       external: ["node:fs", "node:path"],
-    },
-    // reka-ui's dist lands in the SSR dep cache carrying its own copy of Vue
-    // while the @astrojs/vue renderer resolves Vue from source. Across two
-    // module instances the `currentRenderingInstance` that `renderSlot`
-    // dereferences is null, so any reka component throws and the dev response
-    // truncates mid-page. Excluding both puts them on one instance. Only
-    // `astro dev` prebundles, so the build and `wrangler dev` are unaffected.
-    //
-    // Islands wrapping reka still server-render empty under `astro dev`: it
-    // compiles them with SSR-optimized slots that reka's vdom-only dist
-    // cannot accept, and Vue's dev-only guard in `renderSlot` swaps in an
-    // empty slot. They hydrate normally, and the build renders them in full.
-    environments: {
-      ssr: {
-        optimizeDeps: {
-          exclude: [
-            "reka-ui",
-            "vue",
-            "@vue/runtime-core",
-            "@vue/runtime-dom",
-            "@vue/reactivity",
-            "@vue/shared",
-            "@vue/server-renderer",
-          ],
-        },
-      },
     },
   },
   image: {

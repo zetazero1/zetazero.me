@@ -143,6 +143,3 @@ jobs:
 
       - name: Build site
         run: npm run build
-
-      - name: Build story book
-        run: npm run story:build
